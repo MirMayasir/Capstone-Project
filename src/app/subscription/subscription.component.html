@@ -1,0 +1,21 @@
+<div class="center-container">
+    <div class="subscription-details" *ngIf="subscription">
+      <p class="status">
+        <strong>Subscription Status:</strong> 
+        <span [ngClass]="{ subscribed: subscription.isSubscribed, unsubscribed: !subscription.isSubscribed }">
+          {{ subscription.isSubscribed ? 'Subscribed' : 'Not Subscribed' }}
+        </span>
+      </p>
+      <p><strong>Subscription Date:</strong> {{ subscription.subscriptionDate | date:'longDate' }}</p>
+      <p *ngIf="subscription.unsubscribeDate">
+        <strong>Unsubscribe Date:</strong> {{ subscription.unsubscribeDate | date:'longDate' }}
+      </p>
+    </div>
+  
+    <button class="subscribe-btn" (click)="toggleSubscription()">
+      {{ isSubscribed ? 'Unsubscribe' : 'Subscribe' }}
+    </button>
+  
+    <p *ngIf="message" class="message">{{ message }}</p>
+  </div>
+  

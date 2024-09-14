@@ -9,6 +9,7 @@ import { LoginUser } from 'src/Models/login';
 })
 export class LoginServiceService {
 
+  private username: string = '';
   constructor(private http:HttpClient, private router:Router) { }
   token = '';
   req : string = "https://localhost:7260/api/Users";
@@ -67,6 +68,9 @@ export class LoginServiceService {
 
   getToken(): string {
     return localStorage.getItem("token") || '';
+  }
+  getUsername(): string {
+    return localStorage.getItem("Username") || '';
   }
 
   private handleError<T>(operation = 'operation', result?: T) {

@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DrugsComponent } from './drugs/drugs.component';
 import { drugName, drugRegion } from './filters';
+import { SubscriptionComponent } from './subscription/subscription.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +22,7 @@ import { drugName, drugRegion } from './filters';
     DrugsComponent,
     drugName,
     drugRegion,
+    SubscriptionComponent,
   ],
   imports: [
     BrowserModule,
