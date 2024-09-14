@@ -1,0 +1,30 @@
+<div class="drug-input-container">
+    <div class="form-group">
+        <label for="name">Drug Name:</label>
+        <input type="text" id="name" name="name" [(ngModel)]="Name" placeholder="Enter drug name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="region">Region:</label>
+        <input type="text" id="region" name="region" [(ngModel)]="Region" placeholder="Enter region" class="form-control" />
+    </div>
+</div>
+
+<div class="drug-list-container">
+    <h2>Available Drugs</h2>
+    <div *ngIf="drugs.length > 0; else noDrugs">
+        <ul>
+            <li *ngFor="let drug of drugs | drugName:Name | drugRegion:Region" class="drug-item">
+                <h3>{{ drug.name }}</h3>
+                <p><strong>ID:</strong> {{ drug.drugId }}</p>
+                <p><strong>Description:</strong> {{ drug.description }}</p>
+                <p><strong>Manufacturer:</strong> {{ drug.manufacturer }}</p>
+                <p><strong>Price:</strong> ${{ drug.price.toFixed(2) }}</p>
+                <p><strong>Stock:</strong> {{ drug.stock }}</p>
+                <p><strong>Stock:</strong> {{ drug.region }}</p>
+            </li>
+        </ul>
+    </div>
+    <ng-template #noDrugs>
+        <p>No drugs available at the moment.</p>
+    </ng-template>
+</div>

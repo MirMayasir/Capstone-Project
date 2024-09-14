@@ -1,0 +1,29 @@
+
+<div class="container-fluid">
+    <div *ngIf="errormsg!=''" class="alert alert-danger" style="text-align:center">{{errormsg}}</div>
+    <div class="login-content">
+        <form [formGroup]="userform" (ngSubmit)="login()">
+            <div>
+                <label for="username">UserName</label>
+                <input id="username" type="text" placeholder="Enter Username" formControlName="username" required
+                    [ngClass]="{'is-invalid': userform.get('username')?.invalid && userform.get('username')?.touched}"/>
+                <div *ngIf="userform.get('username')?.invalid && userform.get('username')?.touched" class="text-danger">
+                    Username is required.
+                </div>
+            </div>
+
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" placeholder="Enter Password" formControlName="password" required
+                    [ngClass]="{'is-invalid': userform.get('password')?.invalid && userform.get('password')?.touched}"/>
+                <div *ngIf="userform.get('password')?.invalid && userform.get('password')?.touched" class="text-danger">
+                    Password is required.
+                </div>
+            </div>
+            
+            <div>
+                <button type="submit" class="btn btn-primary" [disabled]="userform.invalid">Log In</button>
+            </div>
+        </form>
+    </div>
+</div>

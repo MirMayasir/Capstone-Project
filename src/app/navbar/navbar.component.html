@@ -1,0 +1,16 @@
+<nav class="navbar">
+    <div class="navbar-brand">
+      <a routerLink="/">Pharmacy App</a>
+      <button class="navbar-toggle" (click)="toggleNavbar()">
+        ☰
+      </button>
+    </div>
+    <ul class="navbar-links" [class.active]="isNavbarOpen">
+      <li><a routerLink="">Home</a></li>
+      <li><a routerLink="drugs">Drugs</a></li>
+      <li><a routerLink="/subscriptions">Subscriptions</a></li>
+      <li><a routerLink="/refills">Refills</a></li>
+      <li><a routerLink="/profile">Profile</a></li>
+    </ul>
+  </nav>
+  

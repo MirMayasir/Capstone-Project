@@ -1,0 +1,21 @@
+
+<div class="login-container">
+    <h2>Signup</h2>
+    <form #updateform="ngForm" (submit)="register()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" [(ngModel)]="u.userName" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" [(ngModel)]="u.Email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" [(ngModel)]="u.password" required>
+        </div>
+        <button type="submit">Signup</button>
+    </form>
+
+    <button (click)="signupSection()">login</button>
+</div>
