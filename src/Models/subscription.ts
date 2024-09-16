@@ -4,4 +4,5 @@ export interface Subscriptions{
     isSubscribed:boolean;
     subscriptionDate:Date;
     unsubscribeDate:Date | null;
+    planType:string;
 }

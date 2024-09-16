@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscriptions } from 'src/Models/subscription';
 import { SubscriptionService } from 'src/Services/subscription.service';
 import { LoginServiceService } from 'src/Services/login-service.service';
-import { ChangeDetectorRef } from '@angular/core';
+
 @Component({
   selector: 'app-subscription',
   templateUrl: './subscription.component.html',
@@ -14,7 +14,8 @@ export class SubscriptionComponent implements OnInit {
   subscription: Subscriptions | null = null;
   isSubscribed: boolean = false;
   message: string = '';
-  sub: Subscriptions={isSubscribed:true, subscriptionDate: new Date(), subscriptionID:0, username:"", unsubscribeDate: new Date()};
+  selectedPlanType: string = 'Monthly'; // Default plan type
+  availablePlans: string[] = ['Weekly', 'Monthly', 'Yearly'];
 
   constructor(
     private subscriptionService: SubscriptionService,
@@ -23,66 +24,57 @@ export class SubscriptionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.username = this.loginService.getUsername(); // Retrieve the username from the login service
+    this.username = this.loginService.getUsername();
     if (this.username) {
       this.getSubscriptionStatus();
     }
-    console.log(this.username)
   }
 
   getSubscriptionStatus(): void {
-    console.log("Retrieving subscription status for user:", this.username);
     this.subscriptionService.getSubscriptionByUsername(this.username).subscribe({
       next: (subscription) => {
-        console.log('Received subscription data:', subscription);
         if (subscription) {
           this.subscription = subscription;
           this.isSubscribed = subscription.isSubscribed;
           this.message = '';
         } else {
-          console.warn('No subscription data found.');
+          this.message = 'No subscription data found.';
         }
+        this.cdr.detectChanges(); // Update view if necessary
       },
       error: (err) => {
-        console.error('Error fetching subscription:', err);
         this.message = 'Failed to fetch subscription status.';
+        console.error('Error fetching subscription status:', err);
+        this.cdr.detectChanges(); // Update view if necessary
       }
     });
-
   }
-  // getSubscriptionStatus(){
-  //   this.subscriptionService.getSubscriptionByUsername(this.username).subscribe(data=>{
-  //     this.sub=data;
-  //   });
-  // }
-  
-  
-  
 
   toggleSubscription(): void {
     if (this.isSubscribed) {
       this.subscriptionService.unsubscribe(this.username).subscribe(
-        response => {
+        () => {
           this.subscription = null; // Clear the subscription info
           this.isSubscribed = false;
           this.message = 'You have unsubscribed successfully.';
         },
         error => {
+          this.message = 'Unsubscribe failed.';
           console.error('Unsubscribe failed:', error);
         }
       );
     } else {
-      this.subscriptionService.subscribe(this.username).subscribe(
+      this.subscriptionService.subscribe(this.username, this.selectedPlanType).subscribe(
         response => {
           this.subscription = response; // Update with new subscription info
           this.isSubscribed = true;
           this.message = 'You have subscribed successfully.';
         },
         error => {
+          this.message = 'Subscribe failed.';
           console.error('Subscribe failed:', error);
         }
       );
     }
   }
-
 }

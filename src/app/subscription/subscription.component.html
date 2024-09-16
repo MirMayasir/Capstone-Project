@@ -1,21 +1,32 @@
-<div class="center-container">
-    <div class="subscription-details" *ngIf="subscription">
-      <p class="status">
-        <strong>Subscription Status:</strong> 
-        <span [ngClass]="{ subscribed: subscription.isSubscribed, unsubscribed: !subscription.isSubscribed }">
-          {{ subscription.isSubscribed ? 'Subscribed' : 'Not Subscribed' }}
-        </span>
-      </p>
-      <p><strong>Subscription Date:</strong> {{ subscription.subscriptionDate | date:'longDate' }}</p>
-      <p *ngIf="subscription.unsubscribeDate">
-        <strong>Unsubscribe Date:</strong> {{ subscription.unsubscribeDate | date:'longDate' }}
-      </p>
-    </div>
-  
-    <button class="subscribe-btn" (click)="toggleSubscription()">
-      {{ isSubscribed ? 'Unsubscribe' : 'Subscribe' }}
-    </button>
-  
-    <p *ngIf="message" class="message">{{ message }}</p>
+<div class="container">
+  <div *ngIf="subscription">
+    <!-- Display subscription status -->
+    <p>Subscription Status: <span>{{ subscription.isSubscribed ? 'Subscribed' : 'Not Subscribed' }}</span></p>
+    
+    <!-- Display subscription date -->
+    <p>Subscription Date: {{ subscription.subscriptionDate | date }}</p>
+
+    <p>Unsubscribed Date: {{ subscription.unsubscribeDate | date }}</p>
+
+    <p>My Plan : {{subscription.planType}}</p>
+    
+    <!-- Display unsubscribe date if available -->
+    <p *ngIf="subscription.unsubscribeDate">Unsubscribe Date: {{ subscription.unsubscribeDate | date }}</p>
   </div>
-  
+
+  <!-- Show plan selection only if not subscribed -->
+  <div *ngIf="!isSubscribed">
+    <label for="planType">Choose a plan:</label>
+    <select id="planType" [(ngModel)]="selectedPlanType">
+      <option *ngFor="let plan of availablePlans" [value]="plan">{{ plan }}</option>
+    </select>
+  </div>
+
+  <!-- Subscription/Unsubscription button -->
+  <button (click)="toggleSubscription()">
+    {{ isSubscribed ? 'Unsubscribe' : 'Subscribe' }}
+  </button>
+
+  <!-- Display message after an action -->
+  <p *ngIf="message" class="message">{{ message }}</p>
+</div>
