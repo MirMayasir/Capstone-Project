@@ -21,17 +21,19 @@ export class SubscriptionService {
     );
   }
 
-  // Unsubscribe a user
   unsubscribe(username: string): Observable<Subscriptions> {
-    console.log("unsubscribe")
-    return this.http.post<Subscriptions>(`${this.req}/unsubscribe`, { username }).pipe(
-      catchError(this.handleError<Subscriptions>('unsubscribe'))
+    console.log("Attempting to unsubscribe user:", username);
+  
+    // Sending the username as a JSON object
+    return this.http.post<Subscriptions>(`${this.req}/unsubscribe`, { username }, {
+      headers: { 'Content-Type': 'application/json' }
+    }).pipe(
+      catchError(error => {
+        console.error('Unsubscribe failed:', error);
+        return this.handleError<Subscriptions>('unsubscribe')(error);
+      })
     );
   }
-  
-  
-  
-
   // Get subscription details for a username
   // In subscription.service.ts
 getSubscriptionByUsername(username: string): Observable<Subscriptions> {
