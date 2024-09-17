@@ -13,9 +13,9 @@ export class LoginComponent implements OnInit {
 
   user:LoginUser;
   errormsg:string;
-  u:LoginUser={userName:"", password:"", Email:""};
+  u:LoginUser={userName:"", password:"", email:""};
   constructor(private route:Router, private loginservice:LoginServiceService) { 
-    this.user = { userName: "", password: "", Email:"" };
+    this.user = { userName: "", password: "", email:"" };
   }
   userform:FormGroup=new FormGroup({});
 
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
     let currentuser: LoginUser = {
       userName: this.userform.value.username,
       password: this.userform.value.password,
-      Email : this.userform.value.Email
+      email : this.userform.value.Email
     };
     try {
       this.loginservice.getUserToken(currentuser).subscribe(token => {

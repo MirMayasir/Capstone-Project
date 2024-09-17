@@ -79,4 +79,13 @@ export class LoginServiceService {
       return of(result as T);
     };
   }
+  getUserProfile(customerName: string): Observable<LoginUser> {
+    console.log("Fetching user profile for:", customerName);
+    return this.http.get<LoginUser>(`${this.req}/byusername/${customerName}`);
+}
+
+  updateUserProfile(profile: LoginUser): Observable<void> {
+    return this.http.put<void>(`${this.req}/edit/${profile.userName}`, profile);
+  }
+
 }

@@ -1,4 +1,4 @@
-<div class="auto-fill-container">
+<!-- <div class="auto-fill-container">
     <h2>Subscription Details</h2>
   
     <div *ngIf="subscription">
@@ -6,11 +6,37 @@
       <p><strong>Status:</strong> {{ autoFillData.status }}</p>
       <p><strong>Start Date:</strong> {{ autoFillData.startDate }}</p>
       <p><strong>Next Subscription Date:</strong> {{ autoFillData.nextSubscriptionDate }}</p>
-      <!-- Add other fields as needed -->
+      
     </div>
   
     <div *ngIf="message" class="message">
       {{ message }}
     </div>
   </div>
-  
+   -->
+
+   <!-- auto-fill.component.html -->
+
+<div class="auto-fill-container">
+  <h2>Subscription and Booking Details</h2>
+
+  <!-- Subscription Details -->
+  <div *ngIf="autoFillData">
+    <h3>Subscription Details</h3>
+    <p><strong>Plan Type:</strong> {{ autoFillData.planType }}</p>
+    <p><strong>Status:</strong> {{ autoFillData.status }}</p>
+    <p><strong>Start Date:</strong> {{ autoFillData.startDate }}</p>
+    <p><strong>Next Subscription Date:</strong> {{ autoFillData.nextSubscriptionDate }}</p>
+  </div>
+
+  <!-- Booking Details -->
+  <div *ngIf="lastBookingData">
+    <h3>Last Booking Details</h3>
+    <p><strong>Drug Name:</strong> {{ lastBookingData.drugName }}</p>
+    <p><strong>Last Order Date:</strong> {{ lastBookingData.lastOrderDate }}</p>
+    <p><strong>Next Prescription Date:</strong> {{ lastBookingData.nextPrescriptionDate }}</p>
+  </div>
+
+  <!-- Message Display -->
+  <div *ngIf="message" class="message">{{ message }}</div>
+</div>

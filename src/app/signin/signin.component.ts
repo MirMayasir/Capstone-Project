@@ -11,7 +11,7 @@ import { LoginServiceService } from 'src/Services/login-service.service';
 export class SigninComponent implements OnInit {
 
   user:LoginUser[];
-  u:LoginUser={userName:"", password:"", Email:""};
+  u:LoginUser={userName:"", password:"", email:""};
   constructor(private loginservice:LoginServiceService, private router: Router) { }
 
   ngOnInit(): void {

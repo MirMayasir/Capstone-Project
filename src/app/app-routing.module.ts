@@ -8,6 +8,7 @@ import { SubscriptionComponent } from './subscription/subscription.component';
 import { AutoFillComponent } from './auto-fill/auto-fill.component';
 import { ConfirmDrugComponent } from './confirm-drug/confirm-drug.component';
 import { AuthGuard } from 'src/Guard/auth.guard';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {path: "" , component:HomeComponent},
@@ -16,7 +17,8 @@ const routes: Routes = [
   {path: "drugs", component:DrugsComponent, canActivate:[AuthGuard]},
   {path: "subscription", component:SubscriptionComponent, canActivate:[AuthGuard]},
   {path: "auto-fill", component:AutoFillComponent, canActivate:[AuthGuard]},
-  {path: "confirm-booking/:drugId", component:ConfirmDrugComponent}
+  {path: "confirm-booking/:drugId", component:ConfirmDrugComponent},
+  {path: "profile", component:ProfileComponent, canActivate:[AuthGuard]}
   
 ];
 

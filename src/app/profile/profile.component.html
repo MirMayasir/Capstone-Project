@@ -1,0 +1,24 @@
+<p>profile works!</p>
+<div *ngIf="userProfile">
+    <h2>User Profile</h2>
+    <form (ngSubmit)="updateProfile(userProfile)">
+      <label>
+        Name:
+        <input [(ngModel)]="userProfile.userName" name="name" required />
+      </label>
+      <label>
+        Email:
+        <input [(ngModel)]="userProfile.email" name="email" required />
+      </label>
+      <label>
+        password:
+        <input [(ngModel)]="userProfile.password" name="phone" />
+      </label>
+      <button type="submit">Update Profile</button>
+    </form>
+    <p *ngIf="message">{{ message }}</p>
+  </div>
+  <div *ngIf="!userProfile">
+    <p>Loading profile...</p>
+</div>
+  

@@ -10,7 +10,12 @@ export class BookingService {
 
   constructor(private http:HttpClient) { }
   req:string = "https://localhost:7260/api/Bookings";
-  
+
+  getLastBookingByUsername(customerName: string): Observable<Bookings> {
+    console.log("Fetching last booking for:", customerName);
+    return this.http.get<Bookings>(`${this.req}/byname?customerName=${customerName}`);
+  }
+
   AddBookings(customer: Bookings):Observable<Bookings>{
     console.log(customer);
     return this.http.post<Bookings>(this.req, customer, {

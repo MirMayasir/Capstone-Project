@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { SubscriptionService } from 'src/Services/subscription.service';
+import { BookingService } from 'src/Services/booking.service';
 import { LoginServiceService } from 'src/Services/login-service.service';
 import { Subscriptions } from 'src/Models/subscription';
 
@@ -12,10 +13,12 @@ export class AutoFillComponent implements OnInit {
   username: string = '';
   subscription: Subscriptions | null = null;
   autoFillData: any = {}; // Data to auto-fill form fields or similar
+  lastBookingData: any = {}; // Data to display last booking details
   message: string = '';
 
   constructor(
     private subscriptionService: SubscriptionService,
+    private bookingService: BookingService,
     private loginService: LoginServiceService,
     private cdr: ChangeDetectorRef
   ) {}
@@ -24,6 +27,7 @@ export class AutoFillComponent implements OnInit {
     this.username = this.loginService.getUsername();
     if (this.username) {
       this.getSubscriptionDetails();
+      this.getLastBookingDetails();
     }
   }
 
@@ -56,6 +60,8 @@ export class AutoFillComponent implements OnInit {
       nextSubscriptionDate: nextDate ? new Date(nextDate).toLocaleDateString() : 'N/A',
     };
   }
+
+  
 
   calculateNextSubscriptionDate(planType: string, startDate: Date | null): Date | null {
     if (!startDate) return null;
@@ -95,4 +101,67 @@ export class AutoFillComponent implements OnInit {
 
     return nextDate;
   }
+
+  getLastBookingDetails(): void {
+    console.log('Fetching last booking for:', this.username);
+    this.bookingService.getLastBookingByUsername(this.username).subscribe({
+      next: (response: any) => {
+        console.log('API Response:', response); // Log the entire API response
+
+        // Handle if response is an array
+        if (Array.isArray(response) && response.length > 0) {
+          const booking = response[0]; // Get the first booking if array
+          console.log('First Booking:', booking); // Log the first booking
+          this.lastBookingData = this.mapToBookingData(booking);
+          console.log('Mapped Booking Data:', this.lastBookingData);
+          this.message = '';
+        } else if (response && !Array.isArray(response)) {
+          // Handle if response is a single object
+          console.log('Single Booking Object:', response);
+          this.lastBookingData = this.mapToBookingData(response);
+          console.log('Mapped Booking Data:', this.lastBookingData);
+          this.message = '';
+        } else {
+          this.message = 'No booking data found.';
+        }
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.message = 'Failed to fetch booking details.';
+        console.error('Error fetching booking details:', err);
+        this.cdr.detectChanges();
+      }
+    });
+  }
+
+  mapToBookingData(booking: any): any {
+    console.log('Inside mapToBookingData');
+    console.log('Booking Data:', booking); // Log booking data
+
+    // Ensure booking data has the required fields
+    const lastOrderDate = booking.bookDate ? new Date(booking.bookDate) : null;
+    const dosagePeriod = booking.dosagePeriod || 0; // Default to 0 if undefined
+    console.log('Dosage Period:', dosagePeriod);
+    
+    const nextPrescriptionDate = this.calculateNextPrescriptionDate(dosagePeriod, lastOrderDate);
+    
+    return {
+      drugName: booking.drugName || 'Not Specified',
+      lastOrderDate: lastOrderDate ? lastOrderDate.toLocaleDateString() : 'N/A',
+      nextPrescriptionDate: nextPrescriptionDate ? nextPrescriptionDate.toLocaleDateString() : 'N/A',
+    };
+  }
+
+  calculateNextPrescriptionDate(dosagePeriod: number, lastOrderDate: Date | null): Date | null {
+    console.log('Dosage Period:', dosagePeriod);
+    if (!lastOrderDate || dosagePeriod <= 0) return null;
+
+    const nextDate = new Date(lastOrderDate); // Use Date object directly
+    nextDate.setDate(lastOrderDate.getDate() + dosagePeriod);
+    console.log('The next date is:', nextDate);
+
+    return nextDate;
+  }
+  
+  
 }

@@ -14,6 +14,7 @@ import { drugName, drugRegion } from './filters';
 import { SubscriptionComponent } from './subscription/subscription.component';
 import { AutoFillComponent } from './auto-fill/auto-fill.component';
 import { ConfirmDrugComponent } from './confirm-drug/confirm-drug.component';
+import { ProfileComponent } from './profile/profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { ConfirmDrugComponent } from './confirm-drug/confirm-drug.component';
     SubscriptionComponent,
     AutoFillComponent,
     ConfirmDrugComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
