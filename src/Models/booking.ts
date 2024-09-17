@@ -7,4 +7,5 @@ export interface Bookings{
     region:string;
     customerName:string;
     dosagePeriod:number;
+    bookDate:string;
 }
