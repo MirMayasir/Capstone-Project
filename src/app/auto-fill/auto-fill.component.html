@@ -1,0 +1,16 @@
+<div class="auto-fill-container">
+    <h2>Subscription Details</h2>
+  
+    <div *ngIf="subscription">
+      <p><strong>Plan Type:</strong> {{ autoFillData.planType }}</p>
+      <p><strong>Status:</strong> {{ autoFillData.status }}</p>
+      <p><strong>Start Date:</strong> {{ autoFillData.startDate }}</p>
+      <p><strong>Next Subscription Date:</strong> {{ autoFillData.nextSubscriptionDate }}</p>
+      <!-- Add other fields as needed -->
+    </div>
+  
+    <div *ngIf="message" class="message">
+      {{ message }}
+    </div>
+  </div>
+  

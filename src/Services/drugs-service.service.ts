@@ -15,4 +15,10 @@ export class DrugsServiceService {
     console.log(this.req)
     return this.http.get<Drugs[]>(this.req);
   }
+
+  getCustomerById(id : number) : any{
+    console.log("id fetched")
+    console.log(id);
+    return this.http.get<Drugs>(this.req+"/"+id);   
+  }
 }

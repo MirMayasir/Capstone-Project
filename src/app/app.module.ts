@@ -12,6 +12,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { DrugsComponent } from './drugs/drugs.component';
 import { drugName, drugRegion } from './filters';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { AutoFillComponent } from './auto-fill/auto-fill.component';
+import { ConfirmDrugComponent } from './confirm-drug/confirm-drug.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,8 @@ import { SubscriptionComponent } from './subscription/subscription.component';
     drugName,
     drugRegion,
     SubscriptionComponent,
+    AutoFillComponent,
+    ConfirmDrugComponent,
   ],
   imports: [
     BrowserModule,

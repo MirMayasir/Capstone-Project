@@ -1,0 +1,34 @@
+<form #bookingForm="ngForm" (submit)="saveData()">
+    <div>
+      <label for="name">Drug Name:</label>
+      <input type="text" id="name" name="name" [(ngModel)]="drugs.name" disabled required>
+    </div>
+  
+    <div>
+      <label for="drugDescription">Drug Description:</label>
+      <textarea id="drugDescription" name="drugDescription" [(ngModel)]="drugs.description" disabled ></textarea>
+    </div>
+  
+    <div>
+      <label for="manufacturer">Manufacturer:</label>
+      <input type="text" id="manufacturer" name="manufacturer" [(ngModel)]="drugs.manufacturer" disabled >
+    </div>
+  
+    <div>
+      <label for="price">Price:</label>
+      <input type="number" id="price" name="price" [(ngModel)]="drugs.price" ngModel required disabled>
+    </div>
+  
+    <div>
+      <label for="region">Region:</label>
+      <input type="text" id="region" name="region" [(ngModel)]="drugs.region" disabled>
+    </div>
+  
+    <div>
+      <label for="dosagePeriod">Dosage Period (days):</label>
+      <input type="number" id="dosagePeriod" name="dosagePeriod" [(ngModel)]="bookings.dosagePeriod">
+    </div>
+  
+    <button type="submit">Submit</button>
+  </form>
+  

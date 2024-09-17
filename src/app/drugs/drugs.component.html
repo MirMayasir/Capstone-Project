@@ -20,7 +20,8 @@
                 <p><strong>Manufacturer:</strong> {{ drug.manufacturer }}</p>
                 <p><strong>Price:</strong> ${{ drug.price.toFixed(2) }}</p>
                 <p><strong>Stock:</strong> {{ drug.stock }}</p>
-                <p><strong>Stock:</strong> {{ drug.region }}</p>
+                <p><strong>Available In Region:</strong> {{ drug.region }}</p>
+                <a [routerLink]="['/confirm-booking', drug.drugId]">Buy</a>
             </li>
         </ul>
     </div>

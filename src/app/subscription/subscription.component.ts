@@ -57,6 +57,7 @@ export class SubscriptionComponent implements OnInit {
           this.subscription = null; // Clear the subscription info
           this.isSubscribed = false;
           this.message = 'You have unsubscribed successfully.';
+          alert("UnSubscribed Successfully");
         },
         error => {
           this.message = 'Unsubscribe failed.';
@@ -69,6 +70,7 @@ export class SubscriptionComponent implements OnInit {
           this.subscription = response; // Update with new subscription info
           this.isSubscribed = true;
           this.message = 'You have subscribed successfully.';
+          alert("Subscribed Successfully");
         },
         error => {
           this.message = 'Subscribe failed.';

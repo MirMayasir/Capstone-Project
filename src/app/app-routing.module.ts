@@ -5,13 +5,18 @@ import { SigninComponent } from './signin/signin.component';
 import { HomeComponent } from './home/home.component';
 import { DrugsComponent } from './drugs/drugs.component';
 import { SubscriptionComponent } from './subscription/subscription.component';
+import { AutoFillComponent } from './auto-fill/auto-fill.component';
+import { ConfirmDrugComponent } from './confirm-drug/confirm-drug.component';
+import { AuthGuard } from 'src/Guard/auth.guard';
 
 const routes: Routes = [
   {path: "" , component:HomeComponent},
   {path: "login", component:LoginComponent},
   {path: "signup", component:SigninComponent},
-  {path: "drugs", component:DrugsComponent},
-  {path: "subscription", component:SubscriptionComponent}
+  {path: "drugs", component:DrugsComponent, canActivate:[AuthGuard]},
+  {path: "subscription", component:SubscriptionComponent, canActivate:[AuthGuard]},
+  {path: "auto-fill", component:AutoFillComponent, canActivate:[AuthGuard]},
+  {path: "confirm-booking/:drugId", component:ConfirmDrugComponent}
   
 ];
 
