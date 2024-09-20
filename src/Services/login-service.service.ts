@@ -12,7 +12,7 @@ export class LoginServiceService {
   private username: string = '';
   constructor(private http:HttpClient, private router:Router) { }
   token = '';
-  req : string = "https://localhost:7260/api/Users";
+  req : string = "https://localhost:7260/api/UsersWithLayers";
 
   getAllUsers(): Observable<LoginUser[]> {
     return this.http.get<LoginUser[]>(this.req).pipe(

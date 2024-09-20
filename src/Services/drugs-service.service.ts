@@ -9,7 +9,7 @@ import { Drugs } from 'src/Models/drugs';
 export class DrugsServiceService {
 
   constructor(private http:HttpClient) { }
-  req:string="https://localhost:7260/api/Drugs";
+  req:string="https://localhost:7260/api/DrugsWithLayers";
 
   getAllAvailableDrugs() :Observable<Drugs[]>{
     console.log(this.req)

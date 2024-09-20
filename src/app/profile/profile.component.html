@@ -1,24 +1,68 @@
-<p>profile works!</p>
+<p>Profile works!</p>
 <div *ngIf="userProfile">
     <h2>User Profile</h2>
-    <form (ngSubmit)="updateProfile(userProfile)">
-      <label>
-        Name:
-        <input [(ngModel)]="userProfile.userName" name="name" required />
-      </label>
-      <label>
-        Email:
-        <input [(ngModel)]="userProfile.email" name="email" required />
-      </label>
-      <label>
-        password:
-        <input [(ngModel)]="userProfile.password" name="phone" />
-      </label>
-      <button type="submit">Update Profile</button>
+    <form #profileForm="ngForm" (ngSubmit)="updateProfile(userProfile)" novalidate>
+        <!-- Name Field -->
+        <label>
+            Name:
+            <input 
+                [(ngModel)]="userProfile.userName" 
+                name="name" 
+                #name="ngModel" 
+                required 
+                minlength="3" 
+                maxlength="50" 
+                disabled
+            />
+        </label>
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="error-message">
+            <div *ngIf="name.errors?.['required']">Name is required.</div>
+            <div *ngIf="name.errors?.['minlength']">Name must be at least 3 characters long.</div>
+            <div *ngIf="name.errors?.['maxlength']">Name cannot be longer than 50 characters.</div>
+        </div>
+
+        <!-- Email Field -->
+        <label>
+            Email:
+            <input 
+                [(ngModel)]="userProfile.email" 
+                name="email" 
+                #email="ngModel" 
+                required 
+                email 
+            />
+        </label>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="error-message">
+            <div *ngIf="email.errors?.['required']">Email is required.</div>
+            <div *ngIf="email.errors?.['email']">Invalid email address format.</div>
+        </div>
+
+        <!-- Password Field -->
+        <label>
+            Password:
+            <input 
+                type="password" 
+                [(ngModel)]="userProfile.password" 
+                name="password" 
+                #password="ngModel" 
+                minlength="6" 
+                maxlength="100"
+            />
+        </label>
+        <div *ngIf="password.invalid && (password.dirty || password.touched)" class="error-message">
+            <div *ngIf="password.errors?.['minlength']">Password must be at least 6 characters long.</div>
+            <div *ngIf="password.errors?.['maxlength']">Password cannot be longer than 100 characters.</div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" [disabled]="profileForm.invalid">Update Profile</button>
     </form>
+
+    <!-- Message -->
     <p *ngIf="message">{{ message }}</p>
-  </div>
-  <div *ngIf="!userProfile">
+</div>
+
+<!-- Loading Profile -->
+<div *ngIf="!userProfile">
     <p>Loading profile...</p>
 </div>
-  

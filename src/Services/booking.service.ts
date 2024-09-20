@@ -9,7 +9,7 @@ import { Bookings } from 'src/Models/booking';
 export class BookingService {
 
   constructor(private http:HttpClient) { }
-  req:string = "https://localhost:7260/api/Bookings";
+  req:string = "https://localhost:7260/api/BookingsWithLayers";
 
   getLastBookingByUsername(customerName: string): Observable<Bookings> {
     console.log("Fetching last booking for:", customerName);

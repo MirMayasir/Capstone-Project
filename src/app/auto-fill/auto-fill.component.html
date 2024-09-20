@@ -30,12 +30,22 @@
   </div>
 
   <!-- Booking Details -->
-  <div *ngIf="lastBookingData">
-    <h3>Last Booking Details</h3>
-    <p><strong>Drug Name:</strong> {{ lastBookingData.drugName }}</p>
-    <p><strong>Last Order Date:</strong> {{ lastBookingData.lastOrderDate }}</p>
-    <p><strong>Next Prescription Date:</strong> {{ lastBookingData.nextPrescriptionDate }}</p>
+  <div *ngIf="lastBookingData?.length > 0; else noBookings">
+    <div *ngFor="let booking of lastBookingData">
+      <h3>Booking ID: {{ booking.bookingId }}</h3>
+      <p>Drug Name: {{ booking.drugName }}</p>
+      <p>Last Order Date: {{ booking.lastOrderDate }}</p>
+      <p>Next Prescription Date: {{ booking.nextPrescriptionDate }}</p>
+      <p>Manufacturer: {{ booking.manufacturer }}</p>
+      <p>Price: {{ booking.price | currency }}</p>
+      <hr>
+    </div>
   </div>
+  
+  <ng-template #noBookings>
+    <p>No bookings available.</p>
+  </ng-template>
+  
 
   <!-- Message Display -->
   <div *ngIf="message" class="message">{{ message }}</div>

@@ -27,7 +27,7 @@ export class AutoFillComponent implements OnInit {
     this.username = this.loginService.getUsername();
     if (this.username) {
       this.getSubscriptionDetails();
-      this.getLastBookingDetails();
+      this.getAllBookingDetails();
     }
   }
 
@@ -102,23 +102,15 @@ export class AutoFillComponent implements OnInit {
     return nextDate;
   }
 
-  getLastBookingDetails(): void {
-    console.log('Fetching last booking for:', this.username);
+  getAllBookingDetails(): void {
+    console.log('Fetching all bookings for:', this.username);
     this.bookingService.getLastBookingByUsername(this.username).subscribe({
       next: (response: any) => {
         console.log('API Response:', response); // Log the entire API response
 
         // Handle if response is an array
         if (Array.isArray(response) && response.length > 0) {
-          const booking = response[0]; // Get the first booking if array
-          console.log('First Booking:', booking); // Log the first booking
-          this.lastBookingData = this.mapToBookingData(booking);
-          console.log('Mapped Booking Data:', this.lastBookingData);
-          this.message = '';
-        } else if (response && !Array.isArray(response)) {
-          // Handle if response is a single object
-          console.log('Single Booking Object:', response);
-          this.lastBookingData = this.mapToBookingData(response);
+          this.lastBookingData = response.map(booking => this.mapToBookingData(booking)); // Map all bookings
           console.log('Mapped Booking Data:', this.lastBookingData);
           this.message = '';
         } else {
@@ -134,7 +126,7 @@ export class AutoFillComponent implements OnInit {
     });
   }
 
-  mapToBookingData(booking: any): any {
+mapToBookingData(booking: any): any {
     console.log('Inside mapToBookingData');
     console.log('Booking Data:', booking); // Log booking data
 
@@ -146,13 +138,16 @@ export class AutoFillComponent implements OnInit {
     const nextPrescriptionDate = this.calculateNextPrescriptionDate(dosagePeriod, lastOrderDate);
     
     return {
+      bookingId : booking.bookingId || 'Not Specified',
       drugName: booking.drugName || 'Not Specified',
       lastOrderDate: lastOrderDate ? lastOrderDate.toLocaleDateString() : 'N/A',
       nextPrescriptionDate: nextPrescriptionDate ? nextPrescriptionDate.toLocaleDateString() : 'N/A',
+      manufacturer: booking.manufacturer || 'Not Specified',
+      price : booking.price || 'Not Specified',
     };
-  }
+}
 
-  calculateNextPrescriptionDate(dosagePeriod: number, lastOrderDate: Date | null): Date | null {
+calculateNextPrescriptionDate(dosagePeriod: number, lastOrderDate: Date | null): Date | null {
     console.log('Dosage Period:', dosagePeriod);
     if (!lastOrderDate || dosagePeriod <= 0) return null;
 
@@ -161,7 +156,8 @@ export class AutoFillComponent implements OnInit {
     console.log('The next date is:', nextDate);
 
     return nextDate;
-  }
+}
+
   
   
 }
