@@ -1,42 +1,57 @@
-/* subscription.component.css */
-
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
+  max-width: 400px;
+  margin: 0 auto;
   padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
+  font-family: 'Arial', sans-serif;
+  margin-top: 30px;
 }
 
-.container p, .container button {
+.container p {
+  font-size: 16px;
+  color: #333;
   margin: 10px 0;
 }
 
-.container select {
-  margin: 10px 0;
-}
-
-.message {
-  color: #d9534f; /* Red for error messages */
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #fff;
 }
 
 button {
   padding: 10px 20px;
   font-size: 16px;
-  cursor: pointer;
+  color: white;
+  background-color: #007bff;
   border: none;
   border-radius: 5px;
-  color: #fff;
-  background-color: #5bc0de; /* Blue background */
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #31b0d5; /* Darker blue on hover */
+  background-color: #0056b3;
+}
+
+.message {
+  font-size: 14px;
+  color: #28a745;
+  margin-top: 10px;
 }
 
 label {
+  display: block;
   font-size: 16px;
+  margin-bottom: 8px;
+  text-align: left;
 }

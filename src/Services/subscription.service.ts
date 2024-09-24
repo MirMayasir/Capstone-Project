@@ -8,7 +8,7 @@ import { Subscriptions } from 'src/Models/subscription';
 })
 export class SubscriptionService {
 
-  private readonly req = "https://localhost:7260/api/Subscriptions";
+  private readonly req = "https://localhost:7260/api/SubscriptionWithLayers";
 
   constructor(private http: HttpClient) { }
 
